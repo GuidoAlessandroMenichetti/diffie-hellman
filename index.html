@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Diffie Hellman - Grupo 7</title>
+    <script src="src/utils.js"></script>
+    <script src="src/crypto.js"></script>
+    <script src="src/communication.js"></script>
+    <script src="src/participant.js"></script>
+    <script src="src/setup.js"></script>
+    <script src="src/script.js"></script>
+    <link rel="stylesheet" href="assets/style.css">
+  </head>
+    
+  <body onload="start()">
+    <div id="setup" class="setup">
+      <h2>Configuración</h1>
+      <label>Seleccionar número primo y raíz primitiva</label>
+      <select>
+        <option value="0">p=71, g=7</option>
+      </select>
+      <input type="button" value="Iniciar"/>
+    </div>
+
+    <div id="main" class="main">
+      <div id="bob" class="chat participant bob">
+        <label>Roberto</label>
+        <div class="messages"></div>
+        <div class="form-items">
+          <input class="message-input" placeholder="Mensaje" type="text"/>
+          <input class="send-btn" type="button" value="Enviar"/>
+          <input id="file-bob" class="send-file hidden" type="file" accept="image/png, image/jpeg"/>
+          <label for="file-bob">
+            <img class="file-icon" src="assets/file.png"></img>
+          </label>
+        </div>
+        <textarea class="console" readonly></textarea>
+      </div>
+      <div class="chat middle">
+      </div>
+      <div id="alice" class="chat participant alice">
+        <label>Alicia</label>
+        <div class="messages"></div>
+        <div class="form-items">
+          <input class="message-input" placeholder="Mensaje" type="text"/>
+          <input class="send-btn" type="button" value="Enviar"/>
+          <input id="file-alice" class="send-file hidden" type="file" accept="image/png, image/jpeg"/>
+          <label for="file-alice">
+            <img class="file-icon" src="assets/file.png"></img>
+          </label>
+        </div>
+        <textarea class="console" readonly></textarea>
+      </div>
+    </div>
+
+  </body>
+
+</html>

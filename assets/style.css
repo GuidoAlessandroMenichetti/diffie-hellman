@@ -1,0 +1,144 @@
+body {
+  display: flex;
+  margin: 0;
+  height: 100vh;
+}
+
+.setup {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: beige;
+  padding: 40px;
+  z-index: 1;
+}
+
+.main {
+  display: flex;
+  opacity: 0.1;
+  height: 100%;
+  width: 100%;
+}
+.main.active {
+  opacity: 1;
+}
+.chat.participant {
+  width: 25%;
+  display: block;
+  border: 2px solid gray;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: gainsboro;
+}
+.chat.middle {
+  width: 50%;
+  background-image: url("espia.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 20%;
+}
+
+.chat > * {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.chat label {
+  text-align: center;
+  font-weight: bold;
+}
+.chat .messages {
+  height: 400px;
+  overflow-y: scroll;
+  resize: none;
+  background-image: url("back.jpg");
+  background-size: cover;
+  border-radius: 10px;
+}
+.chat .wrapper {
+  display: flex;
+}
+.chat .wrapper.sent {
+  justify-content: end;
+}
+.chat .message {
+  background-color: lightcyan;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid gray;
+  width: fit-content;
+  animation: animation-opacity 0.5s;
+}
+.chat .wrapper.sent .message {
+  background-color: antiquewhite;
+}
+.chat .form-items {
+  display: flex;
+}
+.chat .form-items .message-input {
+  width: 70%;
+}
+.chat .form-items .send-btn {
+  width: 30%;
+}
+.ongoing-message {
+  position: fixed;
+  z-index: -1;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 5px;
+  width: auto;
+}
+.ongoing-message.alice {
+  top: 350px;
+  animation: animation-ongoing-left 10s;
+}
+.ongoing-message.bob {
+  top: 200px;
+  animation: animation-ongoing-right 10s;
+}
+.console {
+  resize: none;
+  width: 100%;
+  background-color: black;
+  color: white;
+  height: 40%;
+}
+.hidden {
+  display: none;
+}
+.file-icon {
+  display: block;
+  width: 25px;
+  height: 29px;
+  border: none !important;
+  margin: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+@keyframes animation-ongoing-right {
+  from {
+    left: 25%;
+  }
+  to {
+    left: 125%;
+  }
+}
+
+@keyframes animation-ongoing-left {
+  from {
+    left: 75%;
+  }
+  to {
+    left: -25%;
+  }
+}
+
+@keyframes animation-opacity {
+  from { opacity: 0;}
+  to { opacity: 1;}
+}

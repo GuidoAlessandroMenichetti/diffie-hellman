@@ -49,7 +49,7 @@ class Participant {
 
     // enter en el input de texto
     this.textInput.addEventListener('keyup', (e) => {
-      if(e.key === 'Enter') {
+      if (e.key === 'Enter') {
         this.sendMessage(this.textInput.value);
         this.textInput.value = '';
       }
@@ -69,10 +69,10 @@ class Participant {
     this.g = g;
 
     // seteo número secreto aleatorio (a)
-    this.secretNumber = parseInt(Math.random() * 10);
+    this.secretNumber = parseInt(Math.random() * 999);
 
     // genero clave publica (A = g^a mod p)
-    this.publicKey = pow(g, this.secretNumber) % p;
+    this.publicKey = BigInt(pow(g, this.secretNumber) % p);
 
     // muestro en consola los valores
     const identifier = this.getIdentifier();
@@ -83,11 +83,11 @@ class Participant {
 
   async receivePublicKey(key) {
     // calculo la clave privada con la clave publica del otro participante y mi número secreto
-    this.privateKey = pow(key, this.secretNumber) % this.p;
+    this.privateKey = BigInt(pow(key, this.secretNumber) % this.p);
     this.aesKey = await Cryptography.createAesKey(this.privateKey);
 
     this.console.value += `Recibida la clave pública del otro participante: ${key}\n`;
-    this.console.value += `Calculo clave privada (K): ${this.privateKey}\n`;
+    this.console.value += `Calculo clave privada (K = ${this.getOtherIdentifier().toUpperCase()}^${this.getIdentifier()} mod p): ${this.privateKey}\n`;
     this.console.value += `Clave AES creada ${await this.printAesKey()}\n`;
   }
 
@@ -101,16 +101,16 @@ class Participant {
       this.sendMessage(target.result, file.name)
     }
   }
-  
+
   async sendMessage(message, fileName) {
     // no enviar mensajes vacios
-    if(message === '') {
+    if (message === '') {
       return;
     }
 
     // encriptar mensaje con la clave pública
     const encryptedMessage = await Cryptography.encrypt(this.aesKey, message);
-    
+
     // loggear en consola del participante
     this.console.value = '';
     this.console.value += `Mensaje a enviar: ${fileName || message}\n`;
@@ -146,12 +146,18 @@ class Participant {
     const messageWrapper = document.createElement('div');
     messageWrapper.appendChild(newMessage);
     messageWrapper.classList.add('wrapper', mode);
+    messageWrapper.scrollTop = messageWrapper.scrollHeight;
     this.messages.appendChild(messageWrapper);
   }
 
   getIdentifier() {
     // identificador de variables para mostrar en consola
     return this.name === 'alice' ? 'a' : 'b';
+  }
+
+  getOtherIdentifier() {
+    // identificador de variables para mostrar en consola
+    return this.name === 'alice' ? 'b' : 'a';
   }
 
   async printAesKey() {

@@ -4,6 +4,7 @@
     <script src="src/utils.js"></script>
     <script src="src/crypto.js"></script>
     <script src="src/communication.js"></script>
+    <script src="src/spy.js"></script>
     <script src="src/participant.js"></script>
     <script src="src/setup.js"></script>
     <script src="src/script.js"></script>
@@ -15,7 +16,6 @@
       <h2>Configuración</h1>
       <label>Seleccionar número primo y raíz primitiva</label>
       <select>
-        <option value="0">p=71, g=7</option>
       </select>
       <input type="button" value="Iniciar"/>
     </div>
@@ -35,6 +35,12 @@
         <textarea class="console" readonly></textarea>
       </div>
       <div class="chat middle">
+        <div id="spy" class="interceptor">
+          <img src="assets/espia.jpg"/>
+          <div class="stacked">
+            <textarea readonly></textarea>
+          </div>          
+        </div>
       </div>
       <div id="alice" class="chat participant alice">
         <label>Alicia</label>

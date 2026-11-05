@@ -5,7 +5,7 @@ function sleep(ms) {
 
 // calculo de potencias
 function pow(base, exp) {
-  let result = 1;
+  let result = BigInt(1);
   for (let i = 0; i < exp; i++) {
     result *= base;
   }

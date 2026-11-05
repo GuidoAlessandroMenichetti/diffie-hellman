@@ -5,6 +5,7 @@ function start() {
     new Participant('alice', main)
   ];
 
-  const setup = new Setup(main);
+  new Setup(main);
   main.participants = participants;
+  main.spy = new Spy(main);
 }

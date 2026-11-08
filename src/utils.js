@@ -11,3 +11,20 @@ function pow(base, exp) {
   }
   return result;
 }
+
+function fastPow(base, exponente, modulo) {
+  let resultado = 1n;
+  base = BigInt(base) % BigInt(modulo);
+  exponente = BigInt(exponente);
+  modulo = BigInt(modulo);
+
+  while (exponente > 0n) {
+    if (exponente & 1n) {
+      resultado = (resultado * base) % modulo;
+    }
+    base = (base * base) % modulo;
+    exponente >>= 1n;
+  }
+
+  return resultado;
+}

@@ -69,7 +69,7 @@ class Participant {
     this.g = g;
 
     // seteo número secreto aleatorio (a)
-    this.secretNumber = parseInt(Math.random() * 999999999);
+    this.secretNumber = parseInt(5000000000000 + Math.random() * 5000000000000);
 
     // genero clave publica (A = g^a mod p)
     this.publicKey = BigInt(fastPow(g, this.secretNumber, p) % p);

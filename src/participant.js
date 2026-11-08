@@ -69,10 +69,10 @@ class Participant {
     this.g = g;
 
     // seteo número secreto aleatorio (a)
-    this.secretNumber = parseInt(Math.random() * 999);
+    this.secretNumber = parseInt(Math.random() * 999999999);
 
     // genero clave publica (A = g^a mod p)
-    this.publicKey = BigInt(pow(g, this.secretNumber) % p);
+    this.publicKey = BigInt(fastPow(g, this.secretNumber, p) % p);
 
     // muestro en consola los valores
     const identifier = this.getIdentifier();
@@ -83,7 +83,7 @@ class Participant {
 
   async receivePublicKey(key) {
     // calculo la clave privada con la clave publica del otro participante y mi número secreto
-    this.privateKey = BigInt(pow(key, this.secretNumber) % this.p);
+    this.privateKey = BigInt(fastPow(key, this.secretNumber, this.p) % this.p);
     this.aesKey = await Cryptography.createAesKey(this.privateKey);
 
     this.console.value += `Recibida la clave pública del otro participante: ${key}\n`;

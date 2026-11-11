@@ -24,12 +24,19 @@ class Setup {
     this.dropdown = this.container.querySelector('select');
     this.startButton = this.container.querySelector('input');
 
+    // agregar opciones predefinidas
     this.options.forEach((option, i) => {
       const element = document.createElement('option');
       element.value = i;
       element.innerHTML = `p=${option.p}, g=${option.g}`;
       this.dropdown.appendChild(element);
     });
+
+    const generatePGOption = document.createElement('option');
+    generatePGOption.value = -1;
+    generatePGOption.innerHTML = 'Generar';
+    this.dropdown.appendChild(generatePGOption);
+    
     this.startEventListeners();
   }
 
@@ -39,10 +46,19 @@ class Setup {
       this.container.classList.add('hidden');
 
       // leer los parámetros p y g seleccionados
-      const selectedParams = this.options[parseInt(this.dropdown.value)];
+      let p, g;
+      if(this.dropdown.value !== '-1') {
+        const selectedParams = this.options[parseInt(this.dropdown.value)];
+        p = selectedParams.p;
+        g = selectedParams.g;
+      } else {
+        const generated = findPrimeAndRoot(50000000 + parseInt(Math.random() * 50000000));
+        p = generated.p;
+        g = generated.g;
+      }
 
       // empezar la comunicación
-      this.communication.start(selectedParams.p, selectedParams.g);
+      this.communication.start(p, g);
     });
   }
 }
